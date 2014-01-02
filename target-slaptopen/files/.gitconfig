@@ -1,0 +1,14 @@
+[user]
+	email = notrupertthorne@gmail.com
+	nthorne
+[color]
+	ui = true
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[diff]
+	tool = vimdiff
+[mergetool]
+	prompt = false
+[alias]
+	graph = log --graph --pretty=oneline --abbrev-commit
