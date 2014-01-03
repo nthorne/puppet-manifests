@@ -110,13 +110,13 @@ function run_generators()
   for SCRIPT in $(ls $TARGET/generators 2>/dev/null);
   do
     echo "Running generator $SCRIPT"
-    $TARGET/generators/$SCRIPT
+    $TARGET/generators/$SCRIPT "$TARGET"
   done
 }
 
 function apply_manifests()
 {
-  sudo FACTER_user=$USER FACTER_group=$GROUPS FACTER_home=$HOME puppet apply $FLAGS --verbose --modulepath=$(pwd) -e "include $TARGET"
+  sudo FACTER_user=$USER FACTER_group=$GROUPS FACTER_home=$HOME FACTER_target="$pwd/$TARGET" puppet apply $FLAGS --verbose --modulepath=$(pwd) -e "include $TARGET"
 }
 
 parse_options "$@"
