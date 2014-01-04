@@ -8,6 +8,7 @@ class target-slaptopen {
 
   # Target specific packages
   include target-slaptopen::pkg::anki
+  include target-slaptopen::pkg::bankid
   include target-slaptopen::pkg::calibre
   include target-slaptopen::pkg::chromium-browser
   include target-slaptopen::pkg::clamtk
@@ -39,5 +40,4 @@ class target-slaptopen {
 
   # TODO
 #  include target-slaptopen::pkg::samba
-#  include target-slaptopen::pkg::bankid
 }
