@@ -28,6 +28,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::moc
   include target-slaptopen::pkg::mplayer
   include target-slaptopen::pkg::python-libs
+  include target-slaptopen::pkg::samba
   include target-slaptopen::pkg::screen
   include target-slaptopen::pkg::spideroak
   include target-slaptopen::pkg::usbutils
@@ -37,7 +38,4 @@ class target-slaptopen {
   include target-slaptopen::pkg::xmonad
   include target-slaptopen::pkg::xterm
   include target-slaptopen::pkg::zsh
-
-  # TODO
-#  include target-slaptopen::pkg::samba
 }
