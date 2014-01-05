@@ -33,7 +33,7 @@ class target-slaptopen::pkg::zsh {
   exec {"clone-zsh-environment":
     require => [Package["git"], Package["zsh"]],
     cwd => "${home}",
-    creates => "${home}/repos/nthorne-zsh-environment",
+    creates => "${home}/.zsh",
     command => "git clone --recursive http://github.com/nthorne/nthorne-zsh-environment.git .zsh",
     path => ["/bin", "/usr/bin", "/usr/sbin"],
     user => $user,
