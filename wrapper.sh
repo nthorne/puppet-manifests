@@ -116,7 +116,7 @@ function run_generators()
 
 function apply_manifests()
 {
-  sudo FACTER_user=$USER FACTER_group=$GROUPS FACTER_home=$HOME FACTER_target="$pwd/$TARGET" puppet apply $FLAGS --verbose --modulepath=$(pwd) -e "include $TARGET"
+  sudo FACTER_user=$USER FACTER_group=$GROUPS FACTER_home=$HOME FACTER_target="$PWD/$TARGET" puppet apply $FLAGS --verbose --modulepath=$(pwd) -e "include $TARGET"
 }
 
 parse_options "$@"
