@@ -29,6 +29,11 @@ class target-slaptopen::pkg::xmonad {
     ensure => installed,
   }
 
+  package {"libghc-xmonad-contrib-dev"":
+    require => Package["xmonad"],
+    ensure => installed,
+  }
+
   file {"${home}/.xmonad":
     require => Exec["clone-xmonad-environment"],
     ensure => directory,
@@ -41,7 +46,7 @@ class target-slaptopen::pkg::xmonad {
     require => File["${home}/.xmonad"],
     ensure => link,
     force => true,
-    target => "${home}/repos/nthorne-xmonad-environment/xmonad-work_vm.hs",
+    target => "${home}/repos/nthorne-xmonad-environment/xmonad-home.hs",
     owner => $user,
     group => $group,
   }
