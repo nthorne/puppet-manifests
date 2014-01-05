@@ -6,9 +6,11 @@ class target-slaptopen {
   include common::pkg::ipython
   include common::pkg::pylint
 
+  # Generated packages
+  include target-slaptopen::generated::bankid
+
   # Target specific packages
   include target-slaptopen::pkg::anki
-  include target-slaptopen::pkg::bankid
   include target-slaptopen::pkg::calibre
   include target-slaptopen::pkg::chromium-browser
   include target-slaptopen::pkg::clamtk
