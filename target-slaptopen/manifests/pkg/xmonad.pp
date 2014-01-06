@@ -29,7 +29,7 @@ class target-slaptopen::pkg::xmonad {
     ensure => installed,
   }
 
-  package {"libghc-xmonad-contrib-dev"":
+  package {"libghc-xmonad-contrib-dev":
     require => Package["xmonad"],
     ensure => installed,
   }
