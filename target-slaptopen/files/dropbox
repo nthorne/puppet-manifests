@@ -1,0 +1,78 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: dropbox
+# Required-Start: $local_fs
+# Required-Stop: $local_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: starts the dropbox service
+# Description: starts dropbox using start-stop-daemon
+### END INIT INFO
+
+DROPBOX_USERS="nthorne"
+DAEMON=/usr/bin/dropbox
+unset DISPLAY
+
+start() {
+   echo "Starting dropbox..."
+   for dbuser in $DROPBOX_USERS; do
+      HOMEDIR=$(getent passwd $dbuser | cut -d: -f6)
+      echo $HOMEDIR
+      if [ -x $DAEMON ]; then
+         HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $DAEMON -- start
+      fi
+   done
+}
+
+stop() {
+   echo "Stopping dropbox..."
+   for dbuser in $DROPBOX_USERS; do
+      HOMEDIR=$(getent passwd $dbuser | cut -d: -f6)
+      if [ -x $DAEMON ]; then
+        start-stop-daemon -o -c $dbuser -K -u $dbuser -n $(basename $DAEMON)
+      fi
+   done
+}
+
+status() {
+   for dbuser in $DROPBOX_USERS; do
+     dbpid=$(pgrep -u $dbuser dropbox)
+     if [ -z $bpid ] ; then
+        echo "dropboxd for USER $dbuser: not running."
+     else
+        echo "dropboxd for USER $dbuser: running (pid $dbpid)"
+     fi
+   done
+}
+
+case "$1" in
+   start)
+      start
+      sleep 1
+      status
+      ;;
+
+   stop)
+      stop
+      sleep 1
+      status
+      ;;
+
+   restart|reload|force-reload)
+      stop
+      start
+      sleep 1
+      status
+      ;;
+
+   status)
+      status
+      ;;
+
+   *)
+      echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"
+      exit 1
+
+esac
+
+exit 0
