@@ -25,6 +25,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::git
   include target-slaptopen::pkg::gnupg
   include target-slaptopen::pkg::golang
+  include target-slaptopen::pkg::gollum-wiki
   include target-slaptopen::pkg::keepassx
   include target-slaptopen::pkg::mercurial
   include target-slaptopen::pkg::moc
