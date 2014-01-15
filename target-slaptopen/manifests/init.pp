@@ -35,6 +35,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::screen
   include target-slaptopen::pkg::spideroak
   include target-slaptopen::pkg::ticgit
+  include target-slaptopen::pkg::todotxt
   include target-slaptopen::pkg::usbutils
   include target-slaptopen::pkg::vim-gnome
   include target-slaptopen::pkg::virtualbox
