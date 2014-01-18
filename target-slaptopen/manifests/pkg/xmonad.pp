@@ -34,6 +34,24 @@ class target-slaptopen::pkg::xmonad {
     ensure => installed,
   }
 
+  package {"conky-cli":
+    require => Package["xmonad"],
+    ensure => installed,
+  }
+
+  file {"${home}/.conkyrc":
+    require => [Package["conky-cli"]],
+    content => "background yes
+out_to_console yes
+update_interval 1
+
+TEXT
+\${time %Y-%m-%d} \${time %R}",
+    mode => 0755,
+    owner => root,
+    group => root,
+  }
+
   file {"${home}/.xmonad":
     require => Exec["clone-xmonad-environment"],
     ensure => directory,
@@ -85,7 +103,7 @@ class target-slaptopen::pkg::xmonad {
     content => "#!/bin/bash
   unclutter&
   xcompmgr&
-  xmonad | dzen2 -ta l",
+  xmonad",
     mode => 0755,
     owner => root,
     group => root,
