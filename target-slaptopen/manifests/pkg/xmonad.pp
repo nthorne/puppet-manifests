@@ -46,7 +46,7 @@ out_to_console yes
 update_interval 1
 
 TEXT
-\${time %Y-%m-%d} \${time %R}",
+DROPBOX:${exec dropbox status | tail -1} | ESSID:${exec iwconfig wlan0 | sed -ne \"s/.*ESSID:\\"\([0-9A-Za-z]*\)\\".*/\1/p\"} | ${time %Y-%m-%d} ${time %R}",
     mode => 0755,
     owner => root,
     group => root,
