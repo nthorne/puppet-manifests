@@ -33,6 +33,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::python-libs
   include target-slaptopen::pkg::samba
   include target-slaptopen::pkg::screen
+  include target-slaptopen::pkg::soundconverter
   include target-slaptopen::pkg::spideroak
   include target-slaptopen::pkg::ticgit
   include target-slaptopen::pkg::todotxt
