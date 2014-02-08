@@ -41,15 +41,10 @@ class target-slaptopen::pkg::xmonad {
 
   file {"${home}/.conkyrc":
     require => [Package["conky-cli"]],
-    content => "background yes
-out_to_console yes
-update_interval 1
-
-TEXT
-DROPBOX:${exec dropbox status | tail -1} | ESSID:${exec iwconfig wlan0 | sed -ne \"s/.*ESSID:\\"\([0-9A-Za-z]*\)\\".*/\1/p\"} | ${time %Y-%m-%d} ${time %R}",
-    mode => 0755,
-    owner => root,
-    group => root,
+    mode => 0644,
+    owner => "root",
+    group => "root",
+    source  => "puppet:///modules/target-slaptopen/.conkyrc",
   }
 
   file {"${home}/.xmonad":
