@@ -15,6 +15,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::chromium-browser
   include target-slaptopen::pkg::clamtk
   include target-slaptopen::pkg::cryptsetup
+  include target-slaptopen::pkg::dart
   include target-slaptopen::pkg::deluge-gtk
   include target-slaptopen::pkg::dropbox
   include target-slaptopen::pkg::easytag
