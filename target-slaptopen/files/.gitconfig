@@ -14,5 +14,7 @@
 	graph = log --graph --pretty=oneline --abbrev-commit
 	ds = diff --staged
 	st = status -sb
+	sst = submodule status
 	ls = log --pretty=format:'%C(yellow)%h %C(green)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
 	pg = log --graph --pretty=format':%C(yellow)%h%Cred%d%Creset %s %C(green) %an%C(reset), %ar'
+	sup = submodule update --init --recursive
