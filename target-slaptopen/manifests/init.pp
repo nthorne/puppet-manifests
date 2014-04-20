@@ -32,6 +32,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::mercurial
   include target-slaptopen::pkg::moc
   include target-slaptopen::pkg::mplayer
+  include target-slaptopen::pkg::plantuml
   include target-slaptopen::pkg::python-libs
   include target-slaptopen::pkg::samba
   include target-slaptopen::pkg::screen
