@@ -1,7 +1,7 @@
 class target-slaptopen::pkg::dart {
   include target-slaptopen::src::bin
 
-  exec {"install-bankid":
+  exec {"install-dart":
     require => File["${home}/bin"],
     cwd => "${target}/files/generated",
     command => "unzip darteditor-linux-ia32.zip -d ${home}/bin
