@@ -11,4 +11,15 @@ class target-slaptopen::pkg::dart {
     group => $group,
     logoutput => true,
   }
+
+  exec {"symlink-libudev":
+    require => Exec["install-dart"],
+    cwd => "/lib/i386-linux-gnu",
+    command => "ln -s libudev.so.1 libudev.so.0",
+    creates => "/lib/i386-linux-gnu/libudev.so.0",
+    path => ["/bin", "/sbin", "/usr/bin", "/usr/sbin"],
+    user => "root",
+    group => "root",
+    logoutput => true,
+  }
 }
