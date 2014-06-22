@@ -1,0 +1,213 @@
+#!/bin/bash
+
+INFILE=
+OUTFILE=
+OUT_FORMAT=
+
+function usage()
+{
+  cat <<EOF
+Usage: $(basename $0) [OPTIONS] [In] [Out]
+
+This script will generate [Out] from [In], where the type of the respective
+file is determined by its extension. If further granularity is desired, such
+as generating a dzslides html slide show, the -t option can be used.
+
+OPTIONS:
+  -h, --help  display usage
+  -t FORMAT   set output format (see pandoc manual for further information)
+
+
+EXAMPLE:
+compiledoc design.md design.pdf
+
+
+Example Markdown file with plantUML diagram, comments and an exec block:
+
+Design
+======
+
+@startuml img/design.png
+title Design
+
+[C1] --> [C2]
+@enduml
+
+![](img/design.png)
+
+
+Executable code
+===============
+
+@exec /usr/bin/env python
+for i in range(1, 10):
+    print "i: ", i
+@exec
+
+Wireframe
+=========
+
+@startsalt img/wireframe.png
+{
+{T
++Node1
+++Node2
++++Node3
+++Node4
+}
+}
+@endsalt
+![](img/wireframe.png)
+
+@comment
+TODO
+
+[ ] Do some secret stuff that should not be seen in output
+@comment
+
+
+NOTES:
+
+Worth noting here is that PlantUML blocks and exec blocks are
+automatically filtered from the output file.
+
+The output from the code within an @exec block will be inserted
+as-is into the output document without any further processing,
+so in order to preserve newlines and spaces, code block fences
+(\`\`\` in markdown) will be needed.
+EOF
+}
+
+function error()
+{
+  echo "Error: $@" >&2
+  exit 1
+}
+
+function parse_options()
+{
+  while (($#))
+  do
+    case $1 in
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      -t)
+        shift
+        if [[ -z "$1" ]]
+        then
+          error "Missing output type specifier. Try $(basename $0) -h for usage."
+        else
+          OUT_FORMAT="--standalone -t $1"
+        fi
+        ;;
+      *)
+        if [[ -z "$INFILE" ]]
+        then
+          INFILE="$1"
+        elif [[ -z "$OUTFILE" ]]
+        then
+          OUTFILE="$1"
+        else
+          error "$1: unknown option. Try $(basename $0) -h for usage."
+        fi
+        ;;
+    esac
+
+    shift
+  done
+
+  if [[ -z "$INFILE" || -z "$OUTFILE" ]]
+  then
+    error "Insufficient number of arguments. Try $(basename $0) -h for usage."
+  fi
+}
+
+# Allow for execution of @exec blocks, with the detailed interpreter.
+function _execblocks()
+{
+  nawk '
+    BEGIN {
+            INTERPRETER = ""
+            IN_BLOCK = 0
+            CODE_BLOCK = ""
+          }
+
+    /@exec/ {
+              if (1 == IN_BLOCK)
+              {
+                print CODE_BLOCK |& INTERPRETER
+                close(INTERPRETER, "to")
+                while ((INTERPRETER |& getline line) > 0)
+                {
+                  print line
+                }
+                close (INTERPRETER)
+                IN_BLOCK = 0
+                next
+              }
+              else
+              {
+                INTERPRETER=$0
+                gsub(/@exec[ \t]+/, "", INTERPRETER)
+                CODE_BLOCK = ""
+                IN_BLOCK = 1
+                next
+              }
+            }
+
+    IN_BLOCK == 0 {
+            print
+          }
+
+    IN_BLOCK == 1 {
+            if (CODE_BLOCK)
+            {
+              CODE_BLOCK = CODE_BLOCK "\n" $0
+            }
+            else
+            {
+              CODE_BLOCK = $0
+            }
+          }
+  '
+}
+
+# Filter out any comment blocks in the input file
+function _commentblocks()
+{
+  nawk '
+    BEGIN {
+            IN_BLOCK = 0
+          }
+
+    /@comment/ {
+              if (1 == IN_BLOCK)
+              {
+                IN_BLOCK = 0
+                next
+              }
+              else
+              {
+                IN_BLOCK = 1
+                next
+              }
+            }
+
+    IN_BLOCK == 0 {
+            print
+          }
+  ' "$1"
+}
+
+# Filter out any PlantUML blocks from stdin
+function _plantumlblocks()
+{
+  sed -e '/@startuml/,/@enduml/ d' -e '/@startsalt/,/@endsalt/ d'
+}
+
+parse_options "$@"
+
+java -jar ~/bin/plantuml.jar $INFILE && _commentblocks "$INFILE"  | _plantumlblocks | \
+  _execblocks | pandoc  $OUT_FORMAT -o $OUTFILE

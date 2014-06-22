@@ -1,11 +1,5 @@
 class target-slaptopen::pkg::plantuml {
-  package {"pandoc":
-    ensure => installed,
-  }
-
-  package {"graphviz":
-    ensure => installed,
-  }
+  include target-slaptopen::pkg::pandoc
 
   exec {"install-plantuml":
     require => [Package["pandoc"], Package["graphviz"]],
