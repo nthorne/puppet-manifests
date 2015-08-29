@@ -1,25 +1,25 @@
 class target-slaptopen {
   # Configurations
-  include target-slaptopen::cfg::ssh-keys
+  #include target-slaptopen::cfg::ssh-keys
 
   # Common packages
   include common::pkg::ipython
   include common::pkg::pylint
 
   # Generated packages
-  include target-slaptopen::generated::bankid
+  #include target-slaptopen::generated::bankid
 
   # Target specific packages
-  include target-slaptopen::pkg::anki
+  #include target-slaptopen::pkg::anki
   include target-slaptopen::pkg::calibre
   include target-slaptopen::pkg::chromium-browser
   include target-slaptopen::pkg::clamtk
-  include target-slaptopen::pkg::cryptsetup
+  #include target-slaptopen::pkg::cryptsetup
   include target-slaptopen::pkg::dart
   include target-slaptopen::pkg::deluge-gtk
   include target-slaptopen::pkg::dropbox
   include target-slaptopen::pkg::easytag
-  include target-slaptopen::pkg::enigmail
+  #include target-slaptopen::pkg::enigmail
   include target-slaptopen::pkg::filezilla
   include target-slaptopen::pkg::freemind
   include target-slaptopen::pkg::ghc
@@ -27,8 +27,8 @@ class target-slaptopen {
   include target-slaptopen::pkg::gnupg
   include target-slaptopen::pkg::goappengine
   include target-slaptopen::pkg::golang
-  include target-slaptopen::pkg::gollum-wiki
-  include target-slaptopen::pkg::keepassx
+  #include target-slaptopen::pkg::gollum-wiki
+  #include target-slaptopen::pkg::keepassx
   include target-slaptopen::pkg::mercurial
   include target-slaptopen::pkg::moc
   include target-slaptopen::pkg::mplayer
@@ -38,7 +38,7 @@ class target-slaptopen {
   include target-slaptopen::pkg::screen
   include target-slaptopen::pkg::soundconverter
   include target-slaptopen::pkg::spideroak
-  include target-slaptopen::pkg::ticgit
+  #include target-slaptopen::pkg::ticgit
   include target-slaptopen::pkg::tmux
   include target-slaptopen::pkg::todotxt
   include target-slaptopen::pkg::usbutils
