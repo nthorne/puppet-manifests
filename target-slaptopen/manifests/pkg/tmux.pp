@@ -1,6 +1,7 @@
 class target-slaptopen::pkg::tmux {
   include target-slaptopen::pkg::git
   include common::pkg::tmux
+  include common::pkg::xsel
   include target-slaptopen::src::repos
 
   file {"${home}/.tmux.conf":
@@ -13,7 +14,7 @@ class target-slaptopen::pkg::tmux {
   }
 
   exec {"clone-tmux-environment":
-    require => [Package["git"], File["${home}/repos"], Package["tmux"]],
+    require => [Package["git"], File["${home}/repos"], Package["tmux"], Package["xsel"]],
     cwd => "${home}/repos",
     creates => "${home}/repos/nthorne-tmux-environment",
     command => "git clone --recursive http://github.com/nthorne/nthorne-tmux-environment.git",
