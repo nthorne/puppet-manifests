@@ -48,4 +48,5 @@ class target-slaptopen {
   include target-slaptopen::pkg::xmonad
   include target-slaptopen::pkg::xterm
   include target-slaptopen::pkg::zsh
+  include target-slaptopen::pkg::silversearcher-ag
 }
