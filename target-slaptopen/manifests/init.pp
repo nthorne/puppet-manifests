@@ -53,4 +53,6 @@ class target-slaptopen {
   include target-slaptopen::pkg::rust
   include target-slaptopen::pkg::curl
   include target-slaptopen::pkg::scala
+  include target-slaptopen::pkg::afuse
+  include target-slaptopen::pkg::sshfs
 }

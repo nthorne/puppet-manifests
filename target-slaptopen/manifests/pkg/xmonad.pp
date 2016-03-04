@@ -94,9 +94,10 @@ class target-slaptopen::pkg::xmonad {
 
   file {"/usr/sbin/xmonad-xcompmgr":
     subscribe => Notify["xmonad.desktop"],
-    require => [Package["xcompmgr"], Package["dzen2"], Package["unclutter"]],
+    require => [Package["xcompmgr"], Package["dzen2"], Package["unclutter"], Package["afuse", Package["sshfs"]]],
     content => "#!/bin/bash
   unclutter&
+  afuse -o mount_template='sshfs -o ServerAliveInterval=10 -o reconnect %r:/ %m' -o unmount_template='fusermount -u -z %m' $HOME/ssh
   xcompmgr&
   xmonad",
     mode => 0755,
