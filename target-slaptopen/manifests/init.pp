@@ -52,4 +52,5 @@ class target-slaptopen {
   include target-slaptopen::pkg::silversearcher-ag
   include target-slaptopen::pkg::rust
   include target-slaptopen::pkg::curl
+  include target-slaptopen::pkg::scala
 }
