@@ -8,6 +8,7 @@ class target-slaptopen {
 
   # Generated packages
   #include target-slaptopen::generated::bankid
+  #include target-slaptopen::generated::rust
 
   # Target specific packages
   #include target-slaptopen::pkg::anki
@@ -49,4 +50,6 @@ class target-slaptopen {
   include target-slaptopen::pkg::xterm
   include target-slaptopen::pkg::zsh
   include target-slaptopen::pkg::silversearcher-ag
+  include target-slaptopen::pkg::rust
+  include target-slaptopen::pkg::curl
 }
