@@ -55,4 +55,5 @@ class target-slaptopen {
   include target-slaptopen::pkg::scala
   include target-slaptopen::pkg::afuse
   include target-slaptopen::pkg::sshfs
+  include target-slaptopen::pkg::shellcheck
 }
