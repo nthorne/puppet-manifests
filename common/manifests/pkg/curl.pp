@@ -1,4 +1,4 @@
-class target-slaptopen::pkg::curl {
+class common::pkg::curl {
   package {"curl":
     ensure => installed,
   }

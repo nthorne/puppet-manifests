@@ -1,6 +1,7 @@
 class target-slaptopen::pkg::xmonad {
   include target-slaptopen::pkg::git
   include target-slaptopen::pkg::xterm
+  include target-slaptopen::pkg::sshfs
   include target-slaptopen::src::repos
 
   package {"xmonad":
@@ -94,7 +95,7 @@ class target-slaptopen::pkg::xmonad {
 
   file {"/usr/sbin/xmonad-xcompmgr":
     subscribe => Notify["xmonad.desktop"],
-    require => [Package["xcompmgr"], Package["dzen2"], Package["unclutter"], Package["afuse", Package["sshfs"]]],
+    require => [Package["xcompmgr"], Package["dzen2"], Package["unclutter"], Package["afuse"], Package["sshfs"]],
     content => "#!/bin/bash
   unclutter&
   afuse -o mount_template='sshfs -o ServerAliveInterval=10 -o reconnect %r:/ %m' -o unmount_template='fusermount -u -z %m' $HOME/ssh
