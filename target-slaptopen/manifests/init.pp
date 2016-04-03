@@ -56,4 +56,5 @@ class target-slaptopen {
   include target-slaptopen::pkg::afuse
   include target-slaptopen::pkg::sshfs
   include target-slaptopen::pkg::shellcheck
+  include target-slaptopen::pkg::geeknote
 }
