@@ -11,6 +11,6 @@ class target-slaptopen::scripts::compiledoc {
     group => $group,
     logoutput => true,
     mode => 0744,
-    source => "puppet:///modules/target-slaptopen/.gnupg",
+    source => "puppet:///modules/target-slaptopen/compiledoc",
   }
 }
