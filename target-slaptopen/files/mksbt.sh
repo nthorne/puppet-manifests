@@ -73,7 +73,27 @@ function make_project()
 
 version := \"1.0\" \
 
-scalaVersion := \"2.11.8\"" > build.sbt
+scalaVersion := \"2.11.8\"
+
+libraryDependencies += \"org.scalactic\" %% \"scalactic\" % \"2.2.6\"\
+
+libraryDependencies += \"org.scalatest\" %% \"scalatest\" % \"2.2.6\" % \"test\" " > build.sbt
+
+  # create an initial test
+  echo "import org.scalatest._ \
+import $PROJECT._ \
+\
+class $ProjectSpec extends FlatSpec with Matchers { \
+
+\
+
+  \"foo\" should \"bar\" in {\
+
+    List() should be (List())\
+
+  }\
+
+} " > src/test/$PROJECT.scala
 }
 
 parse_options "$@"
