@@ -93,7 +93,7 @@ class $ProjectSpec extends FlatSpec with Matchers { \
 
   }\
 
-} " > src/test/$PROJECT.scala
+} " > src/test/scala/$PROJECT.scala
 }
 
 parse_options "$@"
