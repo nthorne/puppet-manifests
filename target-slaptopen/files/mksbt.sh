@@ -69,31 +69,37 @@ function make_project()
   mkdir lib project target
 
   # create an initial build.sbt file
-  echo "name := \"$PROJECT\" \
+cat > build.sbt << SbtHeredoc
+name := "$PROJECT"
+version := "1.0"
+scalaVersion := "2.11.8"
 
-version := \"1.0\" \
+libraryDependencies += "org.scalactic" %% "scalactic" % "2.2.6"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
+SbtHeredoc
 
-scalaVersion := \"2.11.8\"
+TESTSPEC=$PROJECT"Spec"
+cat > src/test/scala/$PROJECT.scala << TestHereDoc
+// create an initial test
+import org.scalatest._
+import $PROJECT._
 
-libraryDependencies += \"org.scalactic\" %% \"scalactic\" % \"2.2.6\"\
+class $TESTSPEC extends FlatSpec with Matchers {
 
-libraryDependencies += \"org.scalatest\" %% \"scalatest\" % \"2.2.6\" % \"test\" " > build.sbt
+  "foo" should "bar" in {
+    foo.foo() should be (List())
+  }
+}
+TestHereDoc
 
-  # create an initial test
-  echo "import org.scalatest._ \
-import $PROJECT._ \
-\
-class $ProjectSpec extends FlatSpec with Matchers { \
+cat > src/main/scala/$PROJECT.scala << SrcHeredoc
+package $PROJECT
 
-\
+object $PROJECT {
+  def foo() = List()
+}
 
-  \"foo\" should \"bar\" in {\
-
-    List() should be (List())\
-
-  }\
-
-} " > src/test/scala/$PROJECT.scala
+SrcHeredoc
 }
 
 parse_options "$@"
