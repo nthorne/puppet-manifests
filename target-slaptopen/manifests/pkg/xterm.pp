@@ -10,10 +10,7 @@ class target-slaptopen::pkg::xterm {
   }
 
   file {"${home}/.Xresources":
-    content => "XTerm*font: -xos4-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
-  XTerm*loginShell: true",
-    mode => 0755,
-    owner => $user,
-    group => $group,
+    require =>  Package["xterm"],
+    source  => "puppet:///modules/target-slaptopen/.Xresources",
   }
 }
