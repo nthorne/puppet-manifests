@@ -30,6 +30,17 @@ class target-slaptopen::pkg::zsh {
     group => $group,
   }
 
+  exec {"clone-zgen":
+    require => [Package["git"], Package["zsh"], Exec["clone-zsh-environment"]],
+    cwd => "${home}",
+    creates => "${home}/.zgen",
+    command => "git clone --recursive https://github.com/tarjoilija/zgen.git .zgen",
+    path => ["/bin", "/usr/bin", "/usr/sbin"],
+    user => $user,
+    group => $group,
+    logoutput => true,
+  }
+
   exec {"clone-zsh-environment":
     require => [Package["git"], Package["zsh"]],
     cwd => "${home}",
