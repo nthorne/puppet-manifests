@@ -58,5 +58,6 @@ class target-slaptopen {
   include target-slaptopen::pkg::shellcheck
   include target-slaptopen::pkg::geeknote
   include target-slaptopen::pkg::nix
+  include target-slaptopen::pkg::direnv
   include target-slaptopen::scripts::mksbt
 }
