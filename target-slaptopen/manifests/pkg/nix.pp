@@ -8,8 +8,8 @@ class target-slaptopen::pkg::nix {
     group => $user,
   }
 
-  exec {"install-nix":
-    require => Package["curl"],
+  exec {"nix":
+    require => [Package["curl"], File["/nix"]],
     cwd => "/tmp",
     command => "curl https://nixos.org/nix/install | sh",
     creates => "/nix/store",
